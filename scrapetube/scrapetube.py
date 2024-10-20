@@ -197,6 +197,7 @@ def get_search(
 
 def get_video(
     id: str,
+    proxies: dict = {}
 ) -> dict:
     """Get a single video.
 
@@ -213,6 +214,7 @@ def get_video(
     )["client"]
     session.headers["X-YouTube-Client-Name"] = "1"
     session.headers["X-YouTube-Client-Version"] = client["clientVersion"]
+    session.proxies = proxies
     data = json.loads(get_json_from_html(html, "var ytInitialData = ", 0, "};") + "}")
     return next(search_dict(data, "contents"))
 
