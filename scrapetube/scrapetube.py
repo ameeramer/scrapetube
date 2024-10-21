@@ -206,7 +206,7 @@ def get_video(
             The video id from the video you want to get.
     """
 
-    session = get_session()
+    session = get_session(proxies)
     url = f"https://www.youtube.com/watch?v={id}"
     html = get_initial_data(session, url)
     client = json.loads(
@@ -214,7 +214,6 @@ def get_video(
     )["client"]
     session.headers["X-YouTube-Client-Name"] = "1"
     session.headers["X-YouTube-Client-Version"] = client["clientVersion"]
-    session.proxies = proxies
     data = json.loads(get_json_from_html(html, "var ytInitialData = ", 0, "};") + "}")
     return next(search_dict(data, "contents"))
 
