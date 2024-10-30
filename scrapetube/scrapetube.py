@@ -197,7 +197,6 @@ def get_search(
 
 def get_video(
     id: str,
-    proxies: dict = {}
 ) -> dict:
     """Get a single video.
 
@@ -206,7 +205,7 @@ def get_video(
             The video id from the video you want to get.
     """
 
-    session = get_session(proxies)
+    session = get_session()
     url = f"https://www.youtube.com/watch?v={id}"
     html = get_initial_data(session, url)
     client = json.loads(
